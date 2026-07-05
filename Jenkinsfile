@@ -22,7 +22,7 @@ pipeline {
 		    steps {
 		        powershell """
 		            docker build -t $env:IMAGE_NAME:$env:IMAGE_TAG .
-		            echo $env:DOCKERHUB_CREDENTIALS_PSW | docker login -u $env:DOCKERHUB_CREDENTIALS_USR --password-stdin
+		            Write-Output $env:DOCKERHUB_CREDENTIALS_PSW | docker login -u $env:DOCKERHUB_CREDENTIALS_USR --password-stdin
 		            docker push $env:IMAGE_NAME:$env:IMAGE_TAG
 		            docker run -d --name myapp-container -p 7070:9090 $env:IMAGE_NAME:$env:IMAGE_TAG
 		        """
