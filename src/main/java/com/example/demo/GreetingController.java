@@ -23,6 +23,6 @@ public class GreetingController {
 	
 	@GetMapping("/simpleGreet")
 	public String simpleGreet()	{
-		return "Hello Universe !!!";
+		return "Hello Universe Again !!!";
 	}
 }
