@@ -21,10 +21,10 @@ pipeline {
         stage('Deploy') {
 		    steps {
 		        powershell """
-		            docker build -t $env:IMAGE_NAME:$env:IMAGE_TAG .
+		            docker build -t "$env:IMAGE_NAME:$env:IMAGE_TAG" .
 		            Write-Output $env:DOCKERHUB_CREDENTIALS_PSW | docker login -u $env:DOCKERHUB_CREDENTIALS_USR --password-stdin
-		            docker push $env:IMAGE_NAME:$env:IMAGE_TAG
-		            docker run -d --name myapp-container -p 7070:9090 $env:IMAGE_NAME:$env:IMAGE_TAG
+		            docker push "$env:IMAGE_NAME:$env:IMAGE_TAG"
+		            docker run -d --name myapp-container -p 7070:9090 "$env:IMAGE_NAME:$env:IMAGE_TAG"
 		        """
 		    }
 		}
