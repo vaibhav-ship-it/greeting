@@ -3,7 +3,7 @@ pipeline {
     environment {
 		DOCKERHUB_CREDENTIALS = credentials('dockerhub-creds')
 	    IMAGE_NAME = "vai007/greetapp"   // your Docker Hub repo name
-	    IMAGE_TAG  = "${BUILD_NUMBER}"          // or use BUILD_NUMBER / GIT_COMMIT
+	    IMAGE_TAG  = "v1"          // or use BUILD_NUMBER / GIT_COMMIT
 	}
     triggers { githubPush() }
     stages {
