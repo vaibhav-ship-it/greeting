@@ -20,4 +20,9 @@ public class GreetingController {
 	public Greeting greet()	{
 		return new Greeting(greeting);
 	}
+	
+	@GetMapping("/simpleGreet")
+	public String simpleGreet()	{
+		return "Hello World !!!";
+	}
 }
