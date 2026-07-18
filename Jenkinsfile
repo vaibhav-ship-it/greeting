@@ -1,5 +1,5 @@
-node	{
-	pipeline {
+pipeline {
+	node	{
 	    agent any
 	    
 		environment {
