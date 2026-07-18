@@ -19,7 +19,7 @@ pipeline {
                 """    
             }
         }
-        stage('Stop old container')	{
+        /*stage('Stop old container')	{
 			steps	{
 				powershell '''
 					$containerId = docker ps -q -f "name=$env:CONTAINER_NAME"
@@ -29,7 +29,7 @@ pipeline {
                     }
                 '''                
 			}
-		}
+		}*/
         stage('Deploy') {
 		    steps {
 		        powershell '''
