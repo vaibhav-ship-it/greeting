@@ -19,17 +19,19 @@ pipeline {
                 """    
             }
         }
-        /*stage('Stop old container')	{
+        stage('Stop old container')	{
 			steps	{
-				powershell '''
-					$containerId = docker ps -q -f "name=$env:CONTAINER_NAME"
-                    if ($containerId) {
-                        docker stop $env:CONTAINER_NAME
-                        docker rm $env:CONTAINER_NAME
-                    }
-                '''                
+				script	{
+					powershell '''
+						$containerId = docker ps -q -f "name=$env:CONTAINER_NAME"
+	                    if ($containerId) {
+	                        docker stop $env:CONTAINER_NAME
+	                        docker rm $env:CONTAINER_NAME
+	                    }
+	                '''                					
+				}
 			}
-		}*/
+		}
         stage('Deploy') {
 		    steps {
 		        powershell '''
