@@ -1,11 +1,14 @@
 pipeline {
     agent any
-    environment {
-		DOCKERHUB_CREDENTIALS = credentials('dockerhub-creds')
-	    IMAGE_NAME = "vai007/greetapp"   // your Docker Hub repo name
-	    IMAGE_TAG  = "v1"          // or use BUILD_NUMBER / GIT_COMMIT
-	    CONTAINER_NAME = "greet-container"
+    node	{
+		environment {
+			DOCKERHUB_CREDENTIALS = credentials('dockerhub-creds')
+		    IMAGE_NAME = "vai007/greetapp"   // your Docker Hub repo name
+		    IMAGE_TAG  = "v1"          // or use BUILD_NUMBER / GIT_COMMIT
+		    CONTAINER_NAME = "greet-container"
+		}
 	}
+    
     triggers { githubPush() }
     stages {
         stage('Build') {
@@ -21,15 +24,13 @@ pipeline {
         }
         stage('Stop old container')	{
 			steps	{
-				script	{
-					powershell '''
-						$containerId = docker ps -q -f "name=$env:CONTAINER_NAME"
-	                    if ($containerId) {
-	                        docker stop $env:CONTAINER_NAME
-	                        docker rm $env:CONTAINER_NAME
-	                    }
-	                '''                					
-				}
+				powershell '''
+					$containerId = docker ps -q -f "name=$env:CONTAINER_NAME"
+                    if ($containerId) {
+                        docker stop $env:CONTAINER_NAME
+                        docker rm $env:CONTAINER_NAME
+                    }
+                '''                
 			}
 		}
         stage('Deploy') {
