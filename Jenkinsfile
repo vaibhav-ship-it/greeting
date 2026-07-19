@@ -42,6 +42,11 @@ pipeline {
 		        '''
 		    }
 		}
+		stage('Cleanup')	{
+			steps	{
+				cleanWs()
+			}
+		}
     }
     
     post {
@@ -50,12 +55,6 @@ pipeline {
         }
         failure {
             echo 'Pipeline failed. Check logs.'
-        }
-        always {
-			agent any
-			steps	{
-				cleanWs()								
-			}
         }
     }
 }
