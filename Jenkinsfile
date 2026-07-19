@@ -52,7 +52,10 @@ pipeline {
             echo 'Pipeline failed. Check logs.'
         }
         always {
-			cleanWs()				
+			agent any
+			steps	{
+				cleanWs()								
+			}
         }
     }
 }
