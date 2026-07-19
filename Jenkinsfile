@@ -41,15 +41,16 @@ pipeline {
 		}
         stage('Deploy') {
 		    steps {
-		        powershell '''
-		            docker build -t "$env:IMAGE_NAME:$env:IMAGE_TAG" .
-		            
-		            # Use [Console]::Out.Write to avoid newline issues
-		            [Console]::Out.Write($env:DOCKERHUB_CREDENTIALS_PSW) | docker login -u $env:DOCKERHUB_CREDENTIALS_USR --password-stdin
-		            
-		            docker push "$env:IMAGE_NAME:$env:IMAGE_TAG"
-		            docker run -d --name $env:CONTAINER_NAME -p 7070:9090 "$env:IMAGE_NAME:$env:IMAGE_TAG"
-		        '''
+		        withCredentials([usernamePassword(credentialsId: 'dockerhub-creds', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+		            powershell '''
+		                docker build -t "$env:IMAGE_NAME:$env:IMAGE_TAG" .
+		                
+		                [Console]::Out.Write($env:DOCKER_PASS) | docker login -u $env:DOCKER_USER --password-stdin
+		                
+		                docker push "$env:IMAGE_NAME:$env:IMAGE_TAG"
+		                docker run -d --name $env:CONTAINER_NAME -p 7070:9090 "$env:IMAGE_NAME:$env:IMAGE_TAG"
+		            '''
+		        }
 		    }
 		}
 		stage('Cleanup')	{
