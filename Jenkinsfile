@@ -10,6 +10,13 @@ pipeline {
     
     triggers { githubPush() }
     stages {
+		stage('Checkout') {
+		    steps {
+		        git branch: 'main',
+		            url: 'https://github.com/vaibhav-ship-it/greeting.git'
+		    }
+		}
+
         stage('Build') {
             steps {
                 powershell """
