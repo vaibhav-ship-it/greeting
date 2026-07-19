@@ -52,7 +52,7 @@ pipeline {
             echo 'Pipeline failed. Check logs.'
         }
         always {
-			node	{
+			script	{
 	            cleanWs()				
 			}
         }
