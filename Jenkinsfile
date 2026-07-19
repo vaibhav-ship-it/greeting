@@ -45,6 +45,7 @@ pipeline {
     }
     
     post {
+		agent any
         success {
             echo 'Pipeline completed successfully!'
         }
@@ -52,9 +53,7 @@ pipeline {
             echo 'Pipeline failed. Check logs.'
         }
         always {
-			script	{
-	            cleanWs()				
-			}
+			cleanWs()				
         }
     }
 }
