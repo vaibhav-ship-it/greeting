@@ -45,7 +45,6 @@ pipeline {
     }
     
     post {
-		agent any
         success {
             echo 'Pipeline completed successfully!'
         }
