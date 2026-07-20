@@ -44,7 +44,7 @@ pipeline {
 		        withCredentials([usernamePassword(credentialsId: 'dockerhub-creds', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
 		            powershell '''
 		                docker build -t "$env:IMAGE_NAME:$env:IMAGE_TAG" .
-		                
+		                echo $env:DOCKER_USER
 		                [Console]::Out.Write($env:DOCKER_PASS) | docker login -u $env:DOCKER_USER --password-stdin
 		                
 		                docker push "$env:IMAGE_NAME:$env:IMAGE_TAG"
