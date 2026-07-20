@@ -45,6 +45,7 @@ pipeline {
 		            powershell '''
 		                docker build -t "$env:IMAGE_NAME:$env:IMAGE_TAG" .
 		                echo $env:DOCKER_USER
+		                echo $env:DOCKER_PASS
 		                [Console]::Out.Write($env:DOCKER_PASS) | docker login -u $env:DOCKER_USER --password-stdin
 		                
 		                docker push "$env:IMAGE_NAME:$env:IMAGE_TAG"
