@@ -44,7 +44,7 @@ pipeline {
 		        powershell """
 		            docker build -t $env:IMAGE_NAME:$env:IMAGE_TAG .
 		            echo "Username: $env:DOCKERHUB_CREDENTIALS_USR"
-		            echo "Password length: ${$env:DOCKERHUB_CREDENTIALS_PSW.Length}"
+		            echo "Password length: ${$env:DOCKERHUB_CREDENTIALS_PSW.length()}"
 		            echo $env:DOCKERHUB_CREDENTIALS_PSW | docker login -u $env:DOCKERHUB_CREDENTIALS_USR --password-stdin
 		            docker push $env:IMAGE_NAME:$env:IMAGE_TAG
 		            docker run -d --name $env:CONTAINER_NAME -p 7070:9090 $env:IMAGE_NAME:$env:IMAGE_TAG
